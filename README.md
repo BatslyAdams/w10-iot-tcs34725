@@ -11,9 +11,9 @@ Being able to create a GUI on my development machine using UWP and deploying it 
 
 ..but what if you are using an obscure device doesn't have a library? I'd like to show a strategy to start writing your own so you can leverage the vast array of sensors available regardless of the currently supported drivers. 
 
-I'd argue that this is a useful exercise even if libraries are readily available. Creating your own class based on the datasheet will leave you with a deep understanding of how your device operates and may be able to invoke commands that may not be readily exposed by existing library. A real-world example of this was discovering a sleep mode register that was not exposed by the default library and saved power management for a battery powered project.
+I'd argue that this is a useful exercise even if libraries are readily available. Creating your own class based on the datasheet will leave you with a deep understanding of how your device operates and you may be able to invoke commands that may not be readily exposed by existing library. A real-world example of this was discovering a sleep mode register that was not exposed by the default library which allowed more aggressive power management for a battery powered project.
 
-I'd like to do this project for every communications type in the future, this project will cover writing a library for an I2C device.
+I'd like to do this project for every communications type in the future, this project will cover writing a library for an *I2C* device.
 # Strategy
 First up let's lay out a strategy - we'll use the datasheet to:
 * Determine the supply voltage
@@ -33,7 +33,7 @@ In this example we'll be using a [TCS34725 Color Sensor Breakout Board](https://
 `The TCS3472 device provides a digital return of red, green, blue (RGB), and clear light sensing values.`
 
 ## Note: The Big Bad Datasheet
-You should not be intimidated by a datasheet, as a designer you should seek out information that you need. Reading these technical documents is a skill, and the more you practice the better you will become.
+You should not be intimidated by a datasheet, as a developer you should seek out information that you need. They tend to be dense, but know that although all of the information is relevant to *somebody*, it's likely that you only need a small subset of it. Reading these technical documents is a skill, it's sort of fun, and the more you practice the better you will become at it.
 
 ## Determine the supply voltage
 Page 3 of the datasheet reveals that this is a 3.3V device, this means that we can power and interface this device directly to the Raspberry Pi which is also a 3.3V system.
@@ -64,7 +64,7 @@ We also know this is a fast-mode device we now have all the information we need 
 ## Initialize the communications bus
 Now that we've wired up the device we can attempt to initialize and begin speaking to it.
 
-Let's create a class called TCS34725 and create all of the methods we'd need to start interacting with the device
+Let's create a class called TCS34725 and create all of the methods we'd need to start interacting with the device. At first we need a routine to initialize the I2C bus, we could create this as a constructor but it's worthwhile to make a separate Init method in case there was a need to reinitialize after runtime.
 
 ```CSHARP
     class TCS34725
@@ -83,7 +83,6 @@ Let's create a class called TCS34725 and create all of the methods we'd need to 
         }
         ...
 ```
-***MORE INFO HERE***
 
 ## Verify connectivity by reading manufacturer / device ID
 Now that we've initialized the bus and connected the device we should attempt to communicate with it. Although you can read any register to do this it's best to try and read the device / manufacturer ID since it's a constant that can be verified easily. Let's find the register address in the datasheet. 
@@ -97,4 +96,4 @@ With this information we can create a test that will only pass if communication 
 
 *A successful read of register 0x12 that returns 0x44 that we've successfully established an I2C connection to the TCS34725.*
 
-
+# Next section
