@@ -1,9 +1,17 @@
 # Designing a library for an unknown device using Windows 10 IoT Core
 I love Windows 10 IoT Core.
 
-An example I'll often use in my IoT lectures is that we're using the highest level construct I can think of (UWP Color) to drive the lowest level I can think of (pushing voltage to an RGB LED). This is an extremely powerful connection as now we have all of the debugging/development capabilities of Visual Studio interacting with real-world electronics.
+An example I'll often use in my IoT lectures is that we're using the highest level construct I can think of (UWP Color) to drive the lowest level I can think of (pushing voltage to an RGB LED). This is an extremely powerful connection as now we have all of the debugging/development capabilities (including IntelliSense!) of Visual Studio with the added capability of interacting with real-world electronics.
 
-..but what if your device doesn't have a library in the OS? I'd like to show a strategy to start writing your own so you can leverage the vast array of sensors available regardless of the current supported libraries.
+Being able to create a GUI on my development machine using UWP and deploying it across the network to the embedded device has made creating rich, easy to use interfaces a breeze. Here is an RFID system that I was able to prototype in a day's worth of work.
+
+![RFID Interface](./images/rfid-gui.jpg)
+![RFID Device](./images/rfid-device.jpg)
+
+
+..but what if you are using an obscure device doesn't have a library? I'd like to show a strategy to start writing your own so you can leverage the vast array of sensors available regardless of the currently supported drivers. 
+
+I'd argue that you should try it at least once, there are several advantages to to this approach, the biggest being that you will have a deep understanding of how your device operates and may be able to invoke commands that may not be exposed by the library.
 
 I'd like to do this project for every communications type in the future, this project will cover writing a library for an I2C device.
 # Strategy
