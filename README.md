@@ -1,9 +1,9 @@
 # Designing a library for an unknown device using Windows 10 IoT Core
 I love Windows 10 IoT Core.
 
-What if your device doesn't have a library? I'd like to show a strategy to start writing your own so you can leverage the vast array of sensors available regardless of the current supported libraries.
-
 An example I'll often use in my IoT lectures is that we're using the highest level construct I can think of (UWP Color) to drive the lowest level I can think of (pushing voltage to an RGB LED). This is an extremely powerful connection as now we have all of the debugging/development capabilities of Visual Studio interacting with real-world electronics.
+
+..but what if your device doesn't have a library in the OS? I'd like to show a strategy to start writing your own so you can leverage the vast array of sensors available regardless of the current supported libraries.
 
 I'd like to do this project for every communications type in the future, this project will cover writing a library for an I2C device.
 # Strategy
@@ -56,3 +56,25 @@ We also know this is a fast-mode device we can now set our properties accordingl
 
 ## Verify connectivity by reading manufacturer / device ID
 Now that we've wired up the device we can attempt to initialize and begin speaking to it.
+
+Let's create a class called TCS34725 and create all of the methods we'd need to start interacting with the device
+
+```CSHARP
+    class TCS34725
+    {
+        public I2cDevice _i2c;
+        public const byte I2C_DEVICE_ADDRESS = 0x29;    // Determined from datasheet
+
+        public async void Init()
+        {
+            var i2cSettings = new I2cConnectionSettings(I2C_DEVICE_ADDRESS);
+            i2cSettings.BusSpeed = I2cBusSpeed.FastMode; // Detemined from datasheet
+
+            var i2cPath = I2cDevice.GetDeviceSelector();
+            var i2cStr = await DeviceInformation.FindAllAsync(i2cPath); // Find all I2C peripherals on this device
+            _i2c = await I2cDevice.FromIdAsync(i2cStr[0].Id, i2cSettings); // Use the first returned I2C peripheral
+        }
+        ...
+```
+
+We 
