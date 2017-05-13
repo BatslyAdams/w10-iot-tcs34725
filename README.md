@@ -36,7 +36,7 @@ In this example we'll be using a [TCS34725 Color Sensor Breakout Board](https://
 You should not be intimidated by a datasheet, as a developer you should seek out information that you need. They tend to be dense, but know that although all of the information is relevant to *somebody*, it's likely that you only need a small subset of it. Reading these technical documents is a skill, it's sort of fun, and the more you practice the better you will become at it.
 
 ## Determine the supply voltage
-Page 3 of the datasheet reveals that this is a 3.3V device, this means that we can power and interface this device directly to the Raspberry Pi which is also a 3.3V system.
+Page 3 of the datasheet reveals that this is a 3.3V device, this means that we can power and interface this board directly to the Raspberry Pi which is also a 3.3V system.
 
 ![ds-voltage](./images/ds-voltage.png)
 
@@ -94,6 +94,6 @@ Great! We've identified the ID register as 0x12, let's find the details of what 
 
 With this information we can create a test that will only pass if communication has been established correctly.
 
-*A successful read of register 0x12 that returns 0x44 that we've successfully established an I2C connection to the TCS34725.*
+*A successful read of register 0x12 that returns 0x44 verifies that we've successfully established an I2C connection to the TCS34725.*
 
 # Next section
