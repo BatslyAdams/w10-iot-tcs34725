@@ -1,5 +1,7 @@
+## Note: This is a work in progress, trying to crunch down my workshop into markdown.
+
 # Designing a library for an unknown device using Windows 10 IoT Core
-I love Windows 10 IoT Core.
+I love [Windows 10 IoT Core](https://developer.microsoft.com/en-us/windows/iot/explore/iotcore).
 
 An example I'll often use in my IoT lectures is that we're using the highest level construct I can think of (UWP Color) to drive the lowest level I can think of (pushing voltage to an RGB LED). This is an extremely powerful connection as now we have all of the debugging/development capabilities (including IntelliSense!) of Visual Studio with the added capability of interacting with real-world electronics.
 
